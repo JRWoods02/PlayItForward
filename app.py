@@ -44,7 +44,7 @@ def login():
             session['fullname'] = user.fullname  # Store fullname in session
             session['email'] = user.email  # Store email in session
             session.permanent = True
-            return redirect(url_for("home"))
+            return redirect(url_for("myProfile"))
         else:
             return render_template("login.html", message="Invalid email or password.")
     return render_template("login.html")
@@ -86,7 +86,7 @@ def signup():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/teams')
 def teams():
