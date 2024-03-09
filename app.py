@@ -41,11 +41,22 @@ def login():
         user = users.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
             session['user_id'] = user.id
-            session.permanent = True  # Make the session permanent
-            return redirect(url_for('home'))
+            session['fullname'] = user.fullname  # Store fullname in session
+            session['email'] = user.email  # Store email in session
+            session.permanent = True
+            return redirect(url_for("home"))
         else:
             return render_template("login.html", message="Invalid email or password.")
     return render_template("login.html")
+
+
+@app.route("/user")
+def user():
+    if 'user_id' in session:
+        user = session['user_id']
+        return redirect(url_for(""))
+    else:
+        return redirect(url_for("login"))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -65,9 +76,12 @@ def signup():
         db.session.commit()
 
         session['user_id'] = new_user.id
+        session['fullname'] = fullname  # Store fullname in session
+        session['email'] = email  # Store email in session
         return redirect(url_for('home'))
 
     return render_template('signup.html')
+
 
 @app.route('/logout')
 def logout():
