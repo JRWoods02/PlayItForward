@@ -47,6 +47,7 @@ class Post(db.Model):
 
     user = db.relationship('users', backref=db.backref('posts', lazy=True))
 
+# End of database and start of routing functions
     
 @app.route('/')
 def home():

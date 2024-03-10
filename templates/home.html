@@ -2,28 +2,69 @@
 <html>
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .navbar-custom {
+            background: linear-gradient(#001f3f, #5282a7) !important; /* Gradient from dark blue to lighter blue */
+            padding-top: 20px; /* Add padding to increase the height */
+            padding-bottom: 20px; /* Add padding to increase the height */
+        }
+    
+        .navbar-custom .navbar-brand {
+            color: white !important; /* White text color */
+            font-size: 24px; /* Adjust font size for the brand */
+            font-weight: bold; /* Make the text bold */
+        }
+    
+        .navbar-custom .navbar-nav .nav-link {
+            color: white !important; /* White text color */
+        }
+    
+        body {
+            background-color: #ebfaff; /* Light blue background color */
+        }
+    
+        .large-title {
+            text-align: center; /* Align text to the center */
+            margin-top: 24px; /* Add margin-top to create space between heading and navbar */
+        }
+    
+        .large-title h1 {
+            font-size: 50px; /* Adjust font size for the heading */
+            font-style: italic;
+            font-weight: 600;
+        }
+    </style>
 </head>
-<body>
-    <h1>Home Page</h1>
-    <nav>
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Sign Up</a></li>
-        </ul>
-    </nav>
-    <p> 
-        <h1>Welcome! <br>
-            <h4> This app is a place where local sponsors can connect with youth sport teams. Sponsoring youth sports teams can provide opportunities more more kids to participate in sports <br>
-        <h2> Browse Teams and Events to Sponsor <br>
-            <h5>This platform posts local events happening including fundraisers, tournaments, and plays/performances
-        <h2> Local Impact
-            <h3> Provide an opportunity for kids to play <br>
-            <h5> Sponsorhip can be used to purchase equipement and cover team fees which will allow for more families be able to afford paying for their kids sports
-            <h3> Improve athletic facilities <br>
-            <h5>Sponsorships can be used to rehabilitate or construct new soccer feilds, ball parks, and arenas
 
-    </p>
-</body>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PlayItForward</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+    </nav>
+
+    <div class="large-title">
+      <h1>PlayItForward</h1>
+    </div>
+    <br>
+    <p>A platform that connects sports teams with local social causes, enabling teams to support community projects through volunteering, fundraising matches, or awareness campaigns.</p>
+    <br>
+
+    <div class="d-flex justify-content-center vh-100">
+      <div>
+          <form action="/signup" class="mb-3">
+              <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+          </form>
+          <form action="/login" class="mb-3">
+              <button type="submit" class="btn btn-primary btn-lg">Login</button>
+          </form>
+      </div>
+    </div>
+
+  </body>
 </html>
 
