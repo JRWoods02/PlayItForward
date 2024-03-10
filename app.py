@@ -1,7 +1,13 @@
 from flask import Flask, render_template, url_for, redirect, request, session, flash, get_flashed_messages
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from datetime import datetime
+from werkzeug.utils import secure_filename
+from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 app.secret_key = "Pembroke"
@@ -12,13 +18,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
-with app.app_context():
-        db.create_all()
-        print("Database tables created")
+migrate = Migrate(app, db)
+# with app.app_context():
+#         db.create_all()
+#         print("Database tables created")
 
 class users(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    fullname = db.Column(db.String(100), unique=True, nullable=False)
+    fullname = db.Column(db.String(100), unique=False, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
 
@@ -27,6 +35,17 @@ class users(db.Model):
 
     def __repr__(self):
         return '<users {}>'.format(self.fullname)
+    
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(DateTime, default=datetime.utcnow)
+
+    user = db.relationship('users', backref=db.backref('posts', lazy=True))
+
     
 @app.route('/')
 def home():
@@ -101,11 +120,32 @@ def myProfile():
     if 'user_id' not in session:
         flash("You must be logged in to view your profile.", "error")
         return redirect(url_for('login'))
-    
+
+    user_id = session.get('user_id')
+    user_posts = Post.query.filter_by(user_id=user_id).order_by(Post.created_at.desc()).all()
+
     fullname = session.get('fullname')
     email = session.get('email')
-    return render_template("myProfile.html", fullname=fullname, email=email)
+    return render_template("myProfile.html", fullname=fullname, email=email, posts=user_posts)
 
+
+@app.route('/create_post', methods=['GET', 'POST'])
+def create_post():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        current_user_id = session.get('user_id')  # Ensure you have logic to handle user identification
+
+        # Create and save the new post
+        new_post = Post(title=title, description=description, user_id=current_user_id)
+        db.session.add(new_post)
+        db.session.commit()
+
+        flash('Post created successfully!', 'success')
+        return redirect(url_for('myProfile'))
+    
+    # For a GET request, render the form
+    return render_template('create_post.html')
 
 if __name__ == "__main__":
     with app.app_context():

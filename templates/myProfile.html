@@ -19,6 +19,23 @@
         <p><strong>Full Name:</strong> {{ fullname }}</p>
         <p><strong>Email:</strong> {{ email }}</p>
     </div>
+
+    <a href="{{ url_for('create_post') }}">Create Post</a>
+
+    <h2>Your Posts</h2>
+    {% if posts %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.description }}</p>
+                <p>Posted on: {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't posted anything yet.</p>
+{% endif %}
     
 </body>
 </html>
