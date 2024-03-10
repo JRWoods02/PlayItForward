@@ -23,6 +23,7 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ category }}</h6>
                         <p class="card-text">{{ post.description }}</p>
                         <p class="card-text">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                        <p>Posted by: <a href="{{ url_for('user_profile', user_id=post.user_id) }}">{{ post.user.fullname }}</a></p>
                     </div>
                 </div>
             {% endfor %}

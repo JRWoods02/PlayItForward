@@ -13,28 +13,6 @@
             <li><a href="/myProfile">Profile</a></li>
         </ul>
     </nav>
-<!-- 
-    <div>
-        {% if posts %}
-    <ul>
-        {% for post in posts %}
-            <li>
-                <div class="card" style="width: 18rem">
-                <div class="card-body">
-                    <h5 class="card-title">{{ title }}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ category }}</h6>
-                    <p class="card-text">{{ description }}</p>
-                    <a href="{{ card_link_1_href }}" class="card-link">{{ created_at }}</a>
-                </div>
-                </div>
-
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No events available at this time.</p>
-{% endif %}
-    </div> -->
 
     <div class="dashboard-container">
         {% if event_posts %}
@@ -45,6 +23,7 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ category }}</h6>
                         <p class="card-text">{{ post.description }}</p>
                         <p class="card-text">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                        <p>Posted by: <a href="{{ url_for('user_profile', user_id=post.user_id) }}">{{ post.user.fullname }}</a></p>
                     </div>
                 </div>
             {% endfor %}

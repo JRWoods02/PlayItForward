@@ -155,6 +155,12 @@ def create_post():
     # For a GET request, render the form
     return render_template('create_post.html')
 
+@app.route('/user_profile/<int:user_id>')
+def user_profile(user_id):
+    user = users.query.get_or_404(user_id)
+    # Assuming you have a template named user_profile.html to display the user's profile
+    return render_template('user_profile.html', user=user)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ user.fullname }}'s Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/teams">Teams</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/myProfile">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <h1>{{ user.fullname }}'s Profile</h1>
+    <p>Email: {{ user.email }}</p>
+    <!-- Include other user details you wish to display -->
+</body>
+</html>
