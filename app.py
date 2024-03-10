@@ -59,8 +59,8 @@ def login():
         user = users.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
             session['user_id'] = user.id
-            session['fullname'] = user.fullname  # Store fullname in session
-            session['email'] = user.email  # Store email in session
+            session['fullname'] = user.fullname
+            session['email'] = user.email
             session.permanent = True
             return redirect(url_for("myProfile"))
         else:
@@ -77,14 +77,13 @@ def user():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    errors = {}  # Initialize an empty dictionary for collecting potential errors
+    errors = {} 
     
     if request.method == 'POST':
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # Basic validation example
         if not fullname:
             errors['fullname'] = 'Full name is required.'
         if not email:
@@ -97,25 +96,20 @@ def signup():
             errors['email'] = 'Email already exists.'
 
         if errors:
-            # If there are any errors, re-render the signup page with error messages
             return render_template('signup.html', errors=errors)
         else:
-            # If validation passes, proceed to create a new user
             new_user = users(fullname=fullname, email=email)
             new_user.set_password(password)
 
             db.session.add(new_user)
             db.session.commit()
 
-            # You might want to log the user in immediately after signing up
-            # For example, by setting session variables as below
             session['user_id'] = new_user.id
             session['fullname'] = fullname
             session['email'] = email
 
             return redirect(url_for('home'))
 
-    # For a GET request, or if there were errors with the form submission
     return render_template('signup.html', errors={})
 
 @app.route('/logout')
@@ -151,14 +145,13 @@ def create_post():
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
-        category = request.form.get('category')  # Get the category from the form
-        current_user_id = session.get('user_id')  # Ensure you have logic to handle user identification
+        category = request.form.get('category')
+        current_user_id = session.get('user_id')
 
         if not category in ['team', 'event']:
             flash('Invalid category selected.', 'error')
             return redirect(url_for('create_post'))
 
-        # Create and save the new post
         new_post = Post(title=title, description=description, category=category, user_id=current_user_id)
         db.session.add(new_post)
         db.session.commit()
@@ -166,13 +159,11 @@ def create_post():
         flash('Post created successfully!', 'success')
         return redirect(url_for('myProfile'))
     
-    # For a GET request, render the form
     return render_template('create_post.html')
 
 @app.route('/user_profile/<int:user_id>')
 def user_profile(user_id):
     user = users.query.get_or_404(user_id)
-    # Assuming you have a template named user_profile.html to display the user's profile
     return render_template('user_profile.html', user=user)
 
 if __name__ == "__main__":
