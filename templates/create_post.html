@@ -21,6 +21,23 @@
         .navbar-custom .navbar-nav .nav-link {
             color: white !important; /* White text color */
         }
+
+        .head {
+          text-align: center;
+          margin-bottom: 20px; /* Add some space below the heading */
+        }
+
+        body {
+          text-align: center;
+          background-color: #ebfaff;
+      }
+
+      form {
+          text-align: left;
+          max-width: 1000px; /* Adjust the max-width as needed */
+          margin: 0 auto; /* Center the form horizontally */
+      }
+
     </style>
 </head>
 
@@ -47,13 +64,43 @@
         </div>
     </nav>
 
+    <div class="head">
     <h1>Create a New Post</h1>
-    <form action="{{ url_for('create_post') }}" method="post">
+    </div>
+
+    
+    <!--
+    <div class="post-container">
+      <form action="{{ url_for('create_post') }}" method="post">
+          <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" placeholder="eg. Annual Fundraiser" required>
+          </div>
+          <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="description" required></textarea>
+          </div>
+          <div class="mb-3">
+              <label for="category">Category:</label>
+              <select id="category" name="category" required>
+                  <option value="team">Team</option>
+                  <option value="event">Event</option>
+              </select>
+          </div>
+          <input type="submit" value="Create Post">
+      </form>
+  </div>
+-->
+
+<!-- original -->
+    <!-- <form action="{{ url_for('create_post') }}" method="post">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
+        <br>
 
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea>
+        <br>
 
         <label for="category">Category:</label>
         <select id="category" name="category" required>
@@ -62,6 +109,31 @@
         </select>
 
         <input type="submit" value="Create Post">
-    </form>
+    </form> -->
+
+
+    <form action="{{ url_for('create_post') }}" method="post" class="mt-4">
+      <div class="mb-3">
+          <label for="title" class="form-label"><strong>Title:</strong></label>
+          <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+  
+      <div class="mb-3">
+          <label for="description" class="form-label"><strong>Description</strong>:</label>
+          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+      </div>
+  
+      <div class="mb-3">
+          <label for="category" class="form-label"><strong>Category</strong></label>
+          <select class="form-select" id="category" name="category" required>
+              <option value="team">Team</option>
+              <option value="event">Event</option>
+          </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Create Post</button>
+  </form>
+  
+  
 </body>
 </html>

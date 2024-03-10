@@ -19,6 +19,18 @@
         .navbar-custom .navbar-nav .nav-link {
             color: white !important; /* White text color */
         }
+
+        body {
+          background-color: #ebfaff; /* Light blue background color */
+      }
+
+        .card {
+          margin-left: 40px;
+        }
+
+        .headers{
+          margin-left: 40px;
+        }
     </style>
 </head>
 
@@ -44,6 +56,10 @@
           </div>
         </div>
     </nav>
+
+    <div class="headers">
+    <h1>Teams</h1>
+    </div>
 
     {% if team_posts %}
         {% for post in team_posts %}
@@ -73,6 +89,7 @@
                 </div>
             </div>
         </div>
+        <br>
         {% endfor %}
     {% endif %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

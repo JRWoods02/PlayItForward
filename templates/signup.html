@@ -26,4 +26,79 @@
     
         .large-title {
             text-align: center; /* Align text to the center */
-            margin-top: 24px; /* Add marg
+            margin-top: 24px; /* Add margin-top to create space between heading and navbar */
+        }
+    
+        .large-title h1 {
+            font-size: 50px; /* Adjust font size for the heading */
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .signupheading {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PlayItForward</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+    </nav>
+
+    <div class="signupheading">
+    <h1>Sign Up</h1>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mt-5">
+                <form method="POST" action="/signup" class="form-floating">
+                    <!-- Full Name Field -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control {% if errors.fullname %}is-invalid{% endif %}" id="fullname" name="fullname" placeholder="Full Name" required>
+                        <label for="fullname">Full Name</label>
+                        {% if errors.fullname %}
+                            <div class="invalid-feedback">
+                                {{ errors.fullname }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email Field -->
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control {% if errors.email %}is-invalid{% endif %}" id="email" name="email" placeholder="name@example.com" required>
+                        <label for="email">Email address</label>
+                        {% if errors.email %}
+                            <div class="invalid-feedback">
+                                {{ errors.email }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control {% if errors.password %}is-invalid{% endif %}" id="password" name="password" placeholder="Password" required>
+                        <label for="password">Password</label>
+                        {% if errors.password %}
+                            <div class="invalid-feedback">
+                                {{ errors.password }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
