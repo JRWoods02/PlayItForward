@@ -13,5 +13,22 @@
             <li><a href="/myProfile">Profile</a></li>
         </ul>
     </nav>
+
+    <div class="dashboard-container">
+        {% if team_posts %}
+            {% for post in team_posts %}
+                <div class="event-post-card card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ category }}</h6>
+                        <p class="card-text">{{ post.description }}</p>
+                        <p class="card-text">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts-message">No teams available.</p>
+        {% endif %}
+    </div>
 </body>
 </html>

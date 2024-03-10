@@ -38,11 +38,12 @@ class users(db.Model):
     
 class Post(db.Model):
     __tablename__ = 'posts'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    description = db.Column(Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    created_at = db.Column(DateTime, default=datetime.utcnow)
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255), nullable=False)
+    description = Column(Text, nullable=False)
+    category = Column(String(50), nullable=False)  # New column for category
+    user_id = Column(Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = Column(DateTime, default=db.func.current_timestamp())
 
     user = db.relationship('users', backref=db.backref('posts', lazy=True))
 
@@ -109,11 +110,13 @@ def logout():
 
 @app.route('/teams')
 def teams():
-    return render_template("teams.html")
+    team_posts = Post.query.filter_by(category='team').order_by(Post.created_at.desc()).all()
+    return render_template("teams.html", team_posts=team_posts)
 
 @app.route('/events')
 def events():
-    return render_template("events.html")
+    event_posts = Post.query.filter_by(category='event').order_by(Post.created_at.desc()).all()
+    return render_template("events.html", event_posts=event_posts)
 
 @app.route('/myProfile')
 def myProfile():
@@ -134,10 +137,15 @@ def create_post():
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
+        category = request.form.get('category')  # Get the category from the form
         current_user_id = session.get('user_id')  # Ensure you have logic to handle user identification
 
+        if not category in ['team', 'event']:
+            flash('Invalid category selected.', 'error')
+            return redirect(url_for('create_post'))
+
         # Create and save the new post
-        new_post = Post(title=title, description=description, user_id=current_user_id)
+        new_post = Post(title=title, description=description, category=category, user_id=current_user_id)
         db.session.add(new_post)
         db.session.commit()
 
@@ -152,5 +160,3 @@ if __name__ == "__main__":
         db.create_all()
         print("Database tables created")
     app.run(debug=True)
-
-

@@ -28,6 +28,7 @@
         {% for post in posts %}
             <li>
                 <h3>{{ post.title }}</h3>
+                <p>{{ post.category }}</p>
                 <p>{{ post.description }}</p>
                 <p>Posted on: {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
             </li>
