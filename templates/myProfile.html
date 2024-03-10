@@ -19,9 +19,16 @@
         .navbar-custom .navbar-nav .nav-link {
             color: white !important; /* White text color */
         }
+        .top-right-button {
+            position: fixed;
+            top: 100px; /* Adjust these values as needed */
+            right: 10px;
+            z-index: 1030; /* Ensures it's above most Bootstrap elements */
+        }
+
     </style>
-    
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
@@ -47,25 +54,13 @@
             </div>
         </div>
     </nav>
-    <h1>Profile</h1>
 
-    <!--
-    <nav>
-        <ul>
-            <li><a href="/teams">Teams</a></li>
-            <li><a href="/events">Events</a></li>
-            <li><a href="/myProfile">Profile</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        </ul>
-    </nav>
--->
+    <h1>Profile</h1>
 
     <div>
         <p><strong>Full Name:</strong> {{ fullname }}</p>
         <p><strong>Email:</strong> {{ email }}</p>
     </div>
-
-    <a href="{{ url_for('create_post') }}">Create Post</a>
 
     <h2>Your Active Posts:</h2>
 
@@ -80,6 +75,7 @@
         </div>
         {% endfor %}
     {% endif %}
-    
+
+    <a href="{{ url_for('create_post') }}" class="btn btn-outline-primary position-fixed top-right-button">Create Post</a>
 </body>
 </html>

@@ -19,9 +19,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-# with app.app_context():
-#         db.create_all()
-#         print("Database tables created")
 
 class users(db.Model):
     __tablename__ = "users"
@@ -67,9 +64,8 @@ def login():
             session.permanent = True
             return redirect(url_for("myProfile"))
         else:
-            return render_template("login.html", message="Invalid email or password.")
+            return render_template('login.html', invalid=True)
     return render_template("login.html")
-
 
 @app.route("/user")
 def user():
@@ -81,28 +77,46 @@ def user():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    errors = {}  # Initialize an empty dictionary for collecting potential errors
+    
     if request.method == 'POST':
-        fullname = request.form['fullname']
-        email = request.form['email']
-        password = request.form['password']
+        fullname = request.form.get('fullname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Basic validation example
+        if not fullname:
+            errors['fullname'] = 'Full name is required.'
+        if not email:
+            errors['email'] = 'Email is required.'
+        if not password:
+            errors['password'] = 'Password is required.'
 
         user = users.query.filter_by(email=email).first()
         if user:
-            return 'Email already exists.'
+            errors['email'] = 'Email already exists.'
 
-        new_user = users(fullname=fullname, email=email)
-        new_user.set_password(password)
+        if errors:
+            # If there are any errors, re-render the signup page with error messages
+            return render_template('signup.html', errors=errors)
+        else:
+            # If validation passes, proceed to create a new user
+            new_user = users(fullname=fullname, email=email)
+            new_user.set_password(password)
 
-        db.session.add(new_user)
-        db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
 
-        session['user_id'] = new_user.id
-        session['fullname'] = fullname  # Store fullname in session
-        session['email'] = email  # Store email in session
-        return redirect(url_for('home'))
+            # You might want to log the user in immediately after signing up
+            # For example, by setting session variables as below
+            session['user_id'] = new_user.id
+            session['fullname'] = fullname
+            session['email'] = email
 
-    return render_template('signup.html')
+            return redirect(url_for('home'))
 
+    # For a GET request, or if there were errors with the form submission
+    return render_template('signup.html', errors={})
 
 @app.route('/logout')
 def logout():
@@ -131,7 +145,6 @@ def myProfile():
     fullname = session.get('fullname')
     email = session.get('email')
     return render_template("myProfile.html", fullname=fullname, email=email, posts=user_posts)
-
 
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():

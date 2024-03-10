@@ -1,70 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        .navbar-custom {
-            background: linear-gradient(#001f3f, #5282a7) !important; /* Gradient from dark blue to lighter blue */
-            padding-top: 20px; /* Add padding to increase the height */
-            padding-bottom: 20px; /* Add padding to increase the height */
-        }
-    
-        .navbar-custom .navbar-brand {
-            color: white !important; /* White text color */
-            font-size: 24px; /* Adjust font size for the brand */
-            font-weight: bold; /* Make the text bold */
-        }
-    
-        .navbar-custom .navbar-nav .nav-link {
-            color: white !important; /* White text color */
-        }
-    
         body {
-            background-color: #ebfaff; /* Light blue background color */
+            background-color: #ebfaff;
         }
-    
+
+        .navbar-custom {
+            background: linear-gradient(#001f3f, #5282a7) !important;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .navbar-custom .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-custom .navbar-nav .nav-link {
+            color: white !important;
+        }
+
         .large-title {
-            text-align: center; /* Align text to the center */
-            margin-top: 24px; /* Add margin-top to create space between heading and navbar */
+            text-align: center;
+            margin-top: 24px;
         }
-    
+
         .large-title h1 {
-            font-size: 50px; /* Adjust font size for the heading */
+            font-size: 50px;
             font-style: italic;
             font-weight: 600;
         }
+
+        .form-container {
+            margin-bottom: 0; /* Remove extra space under the buttons */
+        }
+
+        .image-container img {
+            width: 440px;
+            margin-left: 50px;
+            margin-top: 20px;
+            height: auto;
+            float: left;
+            border: 2px solid #001f3f;
+        }
+
+        .DescriptionOne {
+            text-align: left;
+            margin-left: 510px;
+            margin-right: 30px;
+            margin-top: 30px;
+            font-size: 40px;
+        }
+
     </style>
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">PlayItForward</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+            <a class="navbar-brand" href="#">PlayItForward</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
     <div class="large-title">
-      <h1>PlayItForward</h1>
+        <h1>PlayItForward</h1>
     </div>
     <br>
-    <p>A platform that connects sports teams with local social causes, enabling teams to support community projects through volunteering, fundraising matches, or awareness campaigns.</p>
-    <br>
 
-    <div class="d-flex justify-content-center vh-100">
-      <div>
-          <form action="/signup" class="mb-3">
-              <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
-          </form>
-          <form action="/login" class="mb-3">
-              <button type="submit" class="btn btn-primary btn-lg">Login</button>
-          </form>
-      </div>
+    <div class="d-flex justify-content-center">
+    <div class="text-center">
+            <form action="/signup" class="mb-3 form-container">
+                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+            </form>
+            <form action="/login" class="mb-3 form-container">
+                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </form>
+        </div>
     </div>
 
-  </body>
+    <div class="image-container">
+        <img src="https://images.squarespace-cdn.com/content/v1/5648b92be4b0471f208a03e7/0bef691a-0363-425c-8661-2d1199543554/Athletes+Giving+Back-02.png?format=1500w" alt="Description of the image">
+    </div>
+
+    <div class="DescriptionOne">
+        <p>A platform that connects sports teams with local social causes, enabling teams to support community projects through volunteering, fundraising matches, 
+            or awareness campaigns.<br> <br>Everyone is welcome! Create an account to post your event or start giving back to your community!</p>
+    </div>
+
+</body>
 </html>
-
