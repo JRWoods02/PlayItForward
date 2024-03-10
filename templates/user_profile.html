@@ -12,4 +12,45 @@
     
         .navbar-custom .navbar-brand {
             color: white !important; /* White text color */
-            font-size:
+            font-size: 24px; /* Adjust font size for the brand */
+            font-weight: bold; /* Make the text bold */
+        }
+
+        .navbar-custom .navbar-nav .nav-link {
+            color: white !important; /* White text color */
+        }
+
+        body {
+          background-color: #ebfaff; /* Light blue background color */
+      }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PlayItForward</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/teams">Teams</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/events">Events</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/myProfile">Profile</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <h2>{{ user.fullname }}'s Profile</h2>
+    <p>Email: {{ user.email }}</p>
+    <!-- Include other user details you wish to display -->
+</body>
+</html>
